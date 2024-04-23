@@ -1,54 +1,36 @@
-import React, { useState } from 'react';
-import { Card, CardContent, Typography, Grid } from '@material-ui/core';
-import { teams } from "../../utils/mockdata";
+// components/TeamList.tsx
+import React from 'react';
+import { Grid, Card, CardContent, Typography } from '@material-ui/core';
 import Image from 'next/image';
+import Link from 'next/link'; // Import Link from next/link
 
-const TeamCard: React.FC<{ team: {id: number; name: string; members: string[]; imageUrl: string } }> = ({ team }) => {
-  const [showMembers, setShowMembers] = useState(false);
+interface Team {
+  id: number;
+  name: string;
+  members: string[];
+  imageUrl: string;
+}
 
-  const toggleMembers = () => {
-    setShowMembers(!showMembers);
-  };
+interface TeamListProps {
+  teams: Team[];
+}
 
-  return (
-    <Grid item xs={12} sm={6} md={4} lg={3}>
-      <Card onClick={toggleMembers}>
-        <div className="image-container">
-          <Image src={team.imageUrl} alt={team.name} className="team-image" />
-        </div>
-        <CardContent>
-          <Typography variant="h5" component="div" gutterBottom>
-            {team.name}
-          </Typography>
-        </CardContent>
-      </Card>
-      {showMembers && <TeamMembersList members={team.members} />}
-    </Grid>
-  );
-};
-
-const TeamMembersList: React.FC<{ members: string[] }> = ({ members }) => {
-  return (
-    <Card>
-      <CardContent>
-        <Typography variant="h5" gutterBottom>
-          Team Members
-        </Typography>
-        <ul>
-          {members.map((member, index) => (
-            <li key={index}>{member}</li>
-          ))}
-        </ul>
-      </CardContent>
-    </Card>
-  );
-};
-
-const TeamList: React.FC = () => {
+const TeamList: React.FC<TeamListProps> = ({ teams }) => {
   return (
     <Grid container spacing={3}>
-      {teams.map((team, index) => (
-        <TeamCard key={index} team={team} />
+      {teams.map((team) => (
+        <Grid item xs={12} sm={6} md={4} lg={3} key={team.id}>
+          <Link href={`/team-members/${team.id}`}> {/* Navigate to TeamMemberPage with team id */}
+            <Card style={{ cursor: 'pointer' }}>
+              <div>
+                <Image src={team.imageUrl} alt={team.name} className="team-image" />
+                <CardContent>
+                  <Typography variant="h5">{team.name}</Typography>
+                </CardContent>
+              </div>
+            </Card>
+          </Link>
+        </Grid>
       ))}
     </Grid>
   );
