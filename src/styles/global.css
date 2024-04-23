@@ -1,0 +1,47 @@
+body {
+    margin: 0;
+
+    
+  }
+  a {
+    /* display: flex; */
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 0 10px 30px;
+    font-family: "Poppins", sans-serif;
+    font-size: 15px;
+    font-weight: 500;
+    color: #fff;
+    white-space: nowrap;
+    transition: 0.3s;
+    text-decoration: none;
+}
+.MuiAppBar-root {
+  background-color: #f2B418 !important;
+}
+.MuiDrawer-paper{
+    background-color: #f2b418 !important;
+    color: #fff;
+    font-family: "Poppins", sans-serif;
+    width: 183px;
+    font-size: 15px;
+    font-weight: 500;
+    align-items: center;
+}
+.image-container {
+  display: flex;
+  justify-content: center;
+  align-items: center; /* Vertically center the image */
+  height: 200px; /* Set a fixed height for the image container */
+  overflow: hidden; /* Hide any overflow from images that are larger */
+}
+.pad10{
+  padding: 0 10px;
+}
+.team-image {
+  width: 100%; /* Ensure the image takes up the full width of its container */
+  height: 100%; /* Ensure the image takes up the full height of its container */
+  object-fit: cover; /* Ensure the image covers the entire container while maintaining aspect ratio */
+  border-radius: 8px; /* Add border radius for rounded corners */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add shadow for a card-like effect */
+}
