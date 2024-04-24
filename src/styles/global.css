@@ -28,20 +28,8 @@ body {
     font-weight: 500;
     align-items: center;
 }
-.image-container {
-  display: flex;
-  justify-content: center;
-  align-items: center; /* Vertically center the image */
-  height: 200px; /* Set a fixed height for the image container */
-  overflow: hidden; /* Hide any overflow from images that are larger */
-}
+
 .pad10{
   padding: 0 10px;
 }
-.team-image {
-  width: 100%; /* Ensure the image takes up the full width of its container */
-  height: 100%; /* Ensure the image takes up the full height of its container */
-  object-fit: cover; /* Ensure the image covers the entire container while maintaining aspect ratio */
-  border-radius: 8px; /* Add border radius for rounded corners */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add shadow for a card-like effect */
-}
+

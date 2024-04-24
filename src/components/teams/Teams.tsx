@@ -23,7 +23,16 @@ const TeamList: React.FC<TeamListProps> = ({ teams }) => {
           <Link href={`/team-members/${team.id}`}> {/* Navigate to TeamMemberPage with team id */}
             <Card style={{ cursor: 'pointer' }}>
               <div>
-                <Image src={team.imageUrl} alt={team.name} className="team-image" />
+                <div style={{ position: 'relative', width: '100%', paddingTop: '75%' }}>
+                  {/* Maintain aspect ratio for the image */}
+                  <Image
+                    src={team.imageUrl}
+                    alt={team.name}
+                    layout="fill"
+                    objectFit="cover"
+                    className="team-image"
+                  />
+                </div>
                 <CardContent>
                   <Typography variant="h5">{team.name}</Typography>
                 </CardContent>
