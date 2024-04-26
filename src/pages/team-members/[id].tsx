@@ -1,23 +1,37 @@
-import { useRouter } from 'next/router';
-import { useEffect, useState } from 'react';
-import { Typography, Grid, Card, CardContent, Button, makeStyles } from '@material-ui/core';
-import { teams } from '../../utils/mockdata';
-import Image from 'next/image';
+"use client";
+
+import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
+import {
+  Typography,
+  Grid,
+  Card,
+  CardContent,
+  Button,
+  makeStyles,
+} from "@material-ui/core";
+import { teams } from "../../utils/mockdata";
+import Image from "next/image";
 
 const useStyles = makeStyles((theme) => ({
+ myheading:{
+  color: "#000",
+  padding: theme.spacing(2, 0),
+  textAlign: "center"
+ },
   paginationContainer: {
     marginTop: theme.spacing(3),
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
   },
   paginationText: {
     margin: theme.spacing(0, 2),
   },
   cardImage: {
-    width: '100%',
-    height: 'auto',
-    objectFit: 'cover',
+    width: "100%",
+    height: "auto",
+    objectFit: "cover",
   },
 }));
 
@@ -26,6 +40,7 @@ interface Team {
   name: string;
   members: string[];
   imageUrl: string;
+  songUrl: string;
 }
 
 const TeamMemberPage = () => {
@@ -36,7 +51,7 @@ const TeamMemberPage = () => {
   const itemsPerPage = 10;
 
   useEffect(() => {
-    if (id && typeof id === 'string') {
+    if (id && typeof id === "string") {
       const selectedTeam = teams.find((team) => team.id === Number(id));
       if (selectedTeam) {
         setTeam(selectedTeam);
@@ -50,39 +65,67 @@ const TeamMemberPage = () => {
 
   const indexOfLastItem = page * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const currentMembers: string[] = team ? team.members.slice(indexOfFirstItem, indexOfLastItem) : [];
+  const currentMembers: string[] = team
+    ? team.members.slice(indexOfFirstItem, indexOfLastItem)
+    : [];
 
   const totalPages = Math.ceil((team?.members.length || 0) / itemsPerPage);
 
   const classes = useStyles();
 
   return (
-    <div style={{ padding: '20px' }}>
+    <div style={{ padding: "20px" }}>
       {team ? (
         <>
           <Typography variant="h4">{team.name}</Typography>
+          <audio controls>
+            <source src={team.songUrl} type="audio/mp3" />
+            Your browser does not support the audio element.
+          </audio>
           <Grid container spacing={3}>
             {currentMembers.map((member, index) => (
               <Grid item xs={12} sm={6} md={4} lg={3} key={index}>
                 <Card>
                   <CardContent>
-                    <div style={{ position: 'relative', width: '100%', height: '200px' }}>
-                      <Image src={team.imageUrl} alt={`${team.name} member`} layout="fill" objectFit="cover" className={classes.cardImage} />
+                    <div
+                      style={{
+                        position: "relative",
+                        width: "100%",
+                        height: "200px",
+                      }}
+                    >
+                      <Image
+                        src={team.imageUrl}
+                        alt={`${team.name} member`}
+                        layout="fill"
+                        objectFit="cover"
+                        className={classes.cardImage}
+                      />
                     </div>
-                    <Typography variant="h6">{member}</Typography>
+                    <Typography variant="h6" className={classes.myheading}>{member}</Typography>
                   </CardContent>
                 </Card>
               </Grid>
             ))}
           </Grid>
           <div className={classes.paginationContainer}>
-            <Button disabled={page === 1} onClick={() => handleChangePage(page - 1)} color="primary" variant="contained">
+            <Button
+              disabled={page === 1}
+              onClick={() => handleChangePage(page - 1)}
+              color="primary"
+              variant="contained"
+            >
               Previous
             </Button>
             <Typography variant="body1" className={classes.paginationText}>
               Page {page} of {totalPages}
             </Typography>
-            <Button disabled={page === totalPages} onClick={() => handleChangePage(page + 1)} color="primary" variant="contained">
+            <Button
+              disabled={page === totalPages}
+              onClick={() => handleChangePage(page + 1)}
+              color="primary"
+              variant="contained"
+            >
               Next
             </Button>
           </div>
